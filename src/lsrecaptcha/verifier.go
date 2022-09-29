@@ -35,8 +35,8 @@ type RecaptchaResponse struct {
 }
 
 const (
-	recaptchaServerName = "https://www.google.com/recaptcha/api/siteverify"
-	recaptchaFormName   = "g-recaptcha-response"
+	recaptchaServerName = "https://challenges.cloudflare.com/turnstile/v0/siteverify"
+	recaptchaFormName   = "cf-turnstile-response"
 	envNameSecretKey    = "LSRECAPTCHA_SECRET_KEY"
 )
 
