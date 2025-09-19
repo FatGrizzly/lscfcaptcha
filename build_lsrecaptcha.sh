@@ -24,7 +24,6 @@ go build lsrecaptcha
 
 if [ $? -eq 0 ]; then
     echo "Build succeeded."
-    cp lsrecaptcha   ../../../dist/lsrecaptcha/_recaptcha
     exit 0
 else
     echo "Build failed."
