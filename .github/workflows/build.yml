@@ -1,0 +1,67 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.13"
+
+      - name: Run build script
+        run: |
+          chmod +x build_lsrecaptcha.sh
+          ./build_lsrecaptcha.sh
+          ls -lh _recaptcha
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: _recaptcha
+          path: _recaptcha
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: _recaptcha
+          path: .
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: _recaptcha
+          body: |
+            ## Installation
+
+            Copy the binary into your server root path:
+            ```bash
+            mkdir -p $SERVER_ROOT/lsrecaptcha/
+            cp _recaptcha $SERVER_ROOT/lsrecaptcha/
+            chmod 555 $SERVER_ROOT/lsrecaptcha/_recaptcha
+            ```
+
+            ### One-liner Install on VPS
+            ```bash
+            wget -qO /usr/local/lsrecaptcha/_recaptcha https://github.com/${{ github.repository }}/releases/latest/download/_recaptcha && chmod 555 /usr/local/lsrecaptcha/_recaptcha
+            ```
+
+            Now you can run:
+            ```bash
+            $SERVER_ROOT/lsrecaptcha/_recaptcha --help
+            ```
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

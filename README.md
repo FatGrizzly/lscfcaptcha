@@ -1,13 +1,13 @@
-lsrecaptcha
+Lsrecaptcha
 ========
 
 Description
 --------
 
-The lscfcaptcha Go module is a custom turnstile processor.
-The turnstile validation is still performed by cloudflare. This executable
+The lsrecaptcha Go module is a custom Recaptcha processor.
+The Recaptcha validation is still performed by Google. This executable
 will check if the response is successful and if so, notify the web server
-that the client successfully completed the turnstile challenge.
+that the client successfully completed the Recaptcha challenge.
 
 Compilation
 --------
@@ -19,7 +19,3 @@ After that, run `build_lsrecaptcha.sh`. This should generate a binary
 named `_recaptcha`. This binary should be copied to `$SERVER_ROOT/lsrecaptcha/`
 and installation is complete.
 
-Forked from:
-https://github.com/litespeedtech/openlitespeed
-
-Edit _recaptcha.shtml appropriately and use, feel free to open an issue.
