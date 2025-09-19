@@ -21,3 +21,9 @@ Replace the existing _recaptcha.shtml file in /usr/local/lsws/lsrecaptcha/ with 
 Restart the server to take effect.
 
 
+Usage
+--------
+
+Once you have replaced the binary, modify OLS/LSWS configuration to use recaptcha, not hcaptcha.
+
+Make sure that you configure the hostnames properly in Cloudflare's Dashboard, else requests would fail.
