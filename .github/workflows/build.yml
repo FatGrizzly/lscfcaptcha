@@ -23,22 +23,12 @@ jobs:
           chmod +x build_lsrecaptcha.sh
           ./build_lsrecaptcha.sh
           ls -lh lsrecaptcha
-
+          mv lsrecaptcha _recaptcha
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: _recaptcha
-          path: lsrecaptcha
-
-  release:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: _recaptcha
-          path: .
+          path: _recaptcha
 
       - name: Release
         uses: softprops/action-gh-release@v2
