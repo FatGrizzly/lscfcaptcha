@@ -28,7 +28,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: _recaptcha
-          path: lsrecaptcha
+          path: _recaptcha
 
   release:
     needs: build
@@ -46,22 +46,13 @@ jobs:
           files: _recaptcha
           body: |
             ## Installation
-
             Copy the binary into your server root path:
             ```bash
-            mkdir -p $SERVER_ROOT/lsrecaptcha/
-            cp _recaptcha $SERVER_ROOT/lsrecaptcha/
-            chmod 555 $SERVER_ROOT/lsrecaptcha/_recaptcha
+            mv _recaptcha /usr/local/lsws/lsrecaptcha/_recaptcha
+            chmod 555 /usr/local/lsws/lsrecaptcha/_recaptcha
             ```
+            Replace the existing _recaptcha.shtml file in /usr/local/lsws/lsrecaptcha/ with the new one.
+            Restart the server to take effect.
 
-            ### One-liner Install on VPS
-            ```bash
-            wget -qO /usr/local/lsrecaptcha/_recaptcha https://github.com/${{ github.repository }}/releases/latest/download/_recaptcha && chmod 555 /usr/local/lsrecaptcha/_recaptcha
-            ```
-
-            Now you can run:
-            ```bash
-            $SERVER_ROOT/lsrecaptcha/_recaptcha --help
-            ```
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
