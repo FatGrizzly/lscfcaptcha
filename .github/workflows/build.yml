@@ -22,13 +22,13 @@ jobs:
         run: |
           chmod +x build_lsrecaptcha.sh
           ./build_lsrecaptcha.sh
-          ls -lh _recaptcha
+          ls -lh lsrecaptcha
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: _recaptcha
-          path: _recaptcha
+          path: lsrecaptcha
 
   release:
     needs: build
